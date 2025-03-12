@@ -28,7 +28,8 @@ import sys
 import App.logic as logic
 import DataStructures.List.arlt as al
 import DataStructures.Map.map_entry as me
-import DataStructures.Map.map_functions as mad
+import DataStructures.Map.map_linear_probing as mad
+#TODO revisar la importación del mapa de linear probing
 
 
 
