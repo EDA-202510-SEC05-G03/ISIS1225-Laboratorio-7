@@ -26,15 +26,17 @@
 
 import sys
 import App.logic as logic
+import DataStructures.List.arlt as al
+import DataStructures.Map.map_entry as me
+import DataStructures.Map.map_functions as mad
 
 
-# TODO Realice la importación del mapa linear probing
-# TODO Realice la importación de ArrayList como estructura de datos auxiliar para sus requerimientos
+
 
 
 """
 La vista se encarga de la interacción con el usuario
-Presenta el menú de opciones y por cada selección
+Presenta el menú de opciones y por rltcada selección
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
