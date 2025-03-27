@@ -4,7 +4,7 @@ from typing import Any
 # import project libs
 # from Src.Func.DataStructs.List import arl
 # import project errors
-from Src.Func.Utils.error import error_handler as err
+from DataStructures.Utils.error import error_handler as err
 
 
 """
