@@ -85,7 +85,7 @@ def put(mp: dict, key: Any, value: Any) -> None:
             rehash(mp)
         # return mp
     except Exception as exp:
-        err("probing", "put()", exp)
+        err.error("probing", "put()", exp)
 
 
 def get(mp: dict, key: Any) -> dict:
@@ -102,7 +102,7 @@ def get(mp: dict, key: Any) -> dict:
             entry = arlt.get_element(mp["table"], _slot)
         return entry
     except Exception as exp:
-        err("probing", "get()", exp)
+        err.error("probing", "get()", exp)
 
 
 def remove(mp: dict, key: Any) -> dict:
@@ -119,7 +119,7 @@ def remove(mp: dict, key: Any) -> dict:
             mp["size"] -= 1
         return mp
     except Exception as exp:
-        err("probing", "remove()", exp)
+        err.error("probing", "remove()", exp)
 
 
 def contains(mp: dict, key: Any) -> bool:
@@ -134,7 +134,7 @@ def contains(mp: dict, key: Any) -> bool:
             return True
         return False
     except Exception as exp:
-        err("probing", "contains()", exp)
+        err.error("probing", "contains()", exp)
 
 
 def size(mp: dict) -> int:
@@ -153,7 +153,7 @@ def is_empty(mp: dict) -> bool:
             _idx += 1
         return empty
     except Exception as exp:
-        err("chaining", "is_empty()", exp)
+        err.error("chaining", "is_empty()", exp)
 
 
 def keys(mp: dict) -> dict:
@@ -169,7 +169,7 @@ def keys(mp: dict) -> dict:
             _idx += 1
         return keys_lt
     except Exception as exp:
-        err("chaining", "keys()", exp)
+        err.error("chaining", "keys()", exp)
 
 
 def values(mp: dict) -> dict:
@@ -219,17 +219,21 @@ def rehash(mp: dict) -> None:
                 _idx += 1
         return mp
     except Exception as exp:
-        err("probing", "rehash()", exp)
+        err.error("probing", "rehash()", exp)
 
 
-def is_available(table: dict, _slot: int) -> bool:
+def is_available(table, _slot):
     try:
         entry = arlt.get_element(table, _slot)
+        if entry is None:
+            return True
         if entry["key"] is None or entry["key"] == "__EMPTY__":
             return True
         return False
     except Exception as exp:
-        err("probing", "is_available()", exp)
+        err.error("probing", "is_available()", exp)
+        return False
+
 
 
 def find_slot(mp: dict, key: Any, _idx: int) -> int:
@@ -255,4 +259,4 @@ def find_slot(mp: dict, key: Any, _idx: int) -> int:
             _slot = ((_slot % mp["capacity"]) + 1)
         return -(_available_slot)
     except Exception as exp:
-        err("probing", "new_find_slot()", exp)
+        err.error("probing", "new_find_slot()", exp)

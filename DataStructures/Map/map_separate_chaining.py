@@ -3,17 +3,17 @@ import random as rd
 from typing import Any
 
 # import modules for data structures index + bucket
-from Src.Func.DataStructs.List import arlt     # as idx
-from Src.Func.DataStructs.List import sllt     # as bucket
+from DataStructures.List import arlt     # as idx
+from DataStructures.List import sllt     # as bucket
 
 # import error handler
-from Src.Func.Utils.error import error_handler as err
+from DataStructures.Utils import error as err
 
 # import map entry
-from Src.Func.DataStructs.Tables import entry as me
+from DataStructures.Map import map_entry as me
 
 # import prime number generator
-from Src.Func.Utils import numbers as num
+from DataStructures.Utils import numbers as num
 
 
 def default_mp_entry_cmp(key: Any, entry: Any) -> int:

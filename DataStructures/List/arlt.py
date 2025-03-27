@@ -4,7 +4,7 @@ from typing import Any
 # import project libs
 # from Src.Func.DataStructs.List import arl
 # import project errors
-from DataStructures.Utils.error import error_handler as err
+from DataStructures.Utils import error as err
 
 
 """
@@ -68,7 +68,7 @@ def is_empty(lt: dict) -> bool:
     try:
         return lt.get("size") == 0
     except Exception as exp:
-        err("arraylist", "is_empty()", exp)
+        err.error("arraylist", "is_empty()", exp)
 
 
 def size(lt: dict) -> int:
@@ -83,7 +83,7 @@ def size(lt: dict) -> int:
     try:
         return lt.get("size")
     except Exception as exp:
-        err("arraylist", "size()", exp)
+        err.error("arraylist", "size()", exp)
 
 
 def add_first(lt: dict, element: Any) -> None:
@@ -97,7 +97,7 @@ def add_first(lt: dict, element: Any) -> None:
         lt.get("elements").insert(0, element)
         lt["size"] += 1
     except Exception as exp:
-        err("arraylist", "add_first()", exp)
+        err.error("arraylist", "add_first()", exp)
 
 
 def add_last(lt: dict, element: Any) -> None:
@@ -108,10 +108,16 @@ def add_last(lt: dict, element: Any) -> None:
         element (Any): element to add to the array list.
     """
     try:
-        lt.get("elements").append(element)
-        lt["size"] += 1
+        if lt is None:
+            print("⚠️ add_last recibió None como lt")
+        elif "elements" not in lt:
+            print("⚠️ lt no tiene clave 'elements':", lt)
+        else:
+            lt.get("elements").append(element)
+            lt["size"] += 1
+
     except Exception as exp:
-        err("arraylist", "add_last()", exp)
+        err.error("arraylist", "add_last()", exp)
 
 
 def add_element(lt: dict, pos: int, element: Any) -> None:
@@ -126,7 +132,7 @@ def add_element(lt: dict, pos: int, element: Any) -> None:
         lt.get("elements").insert(pos, element)
         lt["size"] += 1
     except Exception as exp:
-        err("arraylist", "add_element()", exp)
+        err.error("arraylist", "add_element()", exp)
 
 
 def get_first(lt: dict) -> Any:
@@ -144,7 +150,7 @@ def get_first(lt: dict) -> Any:
             return lt.get("elements")[0]
         return None
     except Exception as exp:
-        err("arraylist", "get_first()", exp)
+        err.error("arraylist", "get_first()", exp)
 
 
 def get_last(lt: dict) -> Any:
@@ -161,7 +167,7 @@ def get_last(lt: dict) -> Any:
             return lt.get("elements")[lt.get("size") - 1]
         return None
     except Exception as exp:
-        err("arraylist", "get_last()", exp)
+        err.error("arraylist", "get_last()", exp)
 
 
 def get_element(lt: dict, pos: int) -> Any:
@@ -179,7 +185,7 @@ def get_element(lt: dict, pos: int) -> Any:
             return None
         return lt.get("elements")[pos]
     except Exception as exp:
-        err("arraylist", "get_element()", exp)
+        err.error("arraylist", "get_element()", exp)
 
 
 def remove_first(lt: dict) -> Any:
@@ -198,7 +204,7 @@ def remove_first(lt: dict) -> Any:
         lt["size"] -= 1
         return elm
     except Exception as exp:
-        err("arraylist", "remove_first()", exp)
+        err.error("arraylist", "remove_first()", exp)
 
 
 def remove_last(lt: dict) -> Any:
@@ -217,7 +223,7 @@ def remove_last(lt: dict) -> Any:
         lt["size"] -= 1
         return elm
     except Exception as exp:
-        err("arraylist", "remove_last()", exp)
+        err.error("arraylist", "remove_last()", exp)
 
 
 def remove_element(lt: dict, pos: int) -> Any:
@@ -237,7 +243,7 @@ def remove_element(lt: dict, pos: int) -> Any:
         lt["size"] -= 1
         return elm
     except Exception as exp:
-        err("arraylist", "remove_element()", exp)
+        err.error("arraylist", "remove_element()", exp)
 
 
 def update(lt: dict, pos: int, element: Any) -> None:
@@ -252,7 +258,7 @@ def update(lt: dict, pos: int, element: Any) -> None:
         lt["elements"][pos] = element
         # lt.get("elements")[pos] = element
     except Exception as exp:
-        err("arraylist", "update()", exp)
+        err.error("arraylist", "update()", exp)
 
 
 def exchange(lt: dict, pos1: int, pos2: int) -> None:
@@ -269,7 +275,7 @@ def exchange(lt: dict, pos1: int, pos2: int) -> None:
         update(lt, pos1, elm2)
         update(lt, pos2, elm1)
     except Exception as exp:
-        err("arraylist", "exchange()", exp)
+        err.error("arraylist", "exchange()", exp)
 
 
 def cmp_elements(lt: dict, elm1: Any, elm2: Any) -> bool:
@@ -291,7 +297,7 @@ def cmp_elements(lt: dict, elm1: Any, elm2: Any) -> bool:
         else:
             return _cmp(elm1, elm2) == 0
     except Exception as exp:
-        err("arraylist", "cmp_elements()", exp)
+        err.error("arraylist", "cmp_elements()", exp)
 
 
 def is_present(lt: dict, element: Any) -> int:
@@ -316,7 +322,7 @@ def is_present(lt: dict, element: Any) -> int:
             idx += 1
         return idx
     except Exception as exp:
-        err("arraylist", "is_present()", exp)
+        err.error("arraylist", "is_present()", exp)
 
 
 def sub_list(lt: dict, start: int, end: int) -> dict:
@@ -345,7 +351,7 @@ def sub_list(lt: dict, start: int, end: int) -> dict:
         #     i += 1
         # return sub_lt
     except Exception as exp:
-        err("arraylist", "sub_list()", exp)
+        err.error("arraylist", "sub_list()", exp)
 
 
 def iterator(lt: dict) -> object:
@@ -361,7 +367,7 @@ def iterator(lt: dict) -> object:
         for pos in range(0, lt.get("size")):
             yield lt.get("elements")[pos]
     except Exception as exp:
-        err("arraylist", "iterator()", exp)
+        err.error("arraylist", "iterator()", exp)
 
 
 def concat(lt1: dict, lt2: dict) -> dict:
@@ -381,4 +387,4 @@ def concat(lt1: dict, lt2: dict) -> dict:
         new_lt.update({"size": len(_elements)})
         return new_lt
     except Exception as exp:
-        err("arraylist", "concat()", exp)
+        err.error("arraylist", "concat()", exp)

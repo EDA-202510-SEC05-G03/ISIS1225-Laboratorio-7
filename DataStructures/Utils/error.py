@@ -25,6 +25,9 @@
   de estructuras de datos y TADs
 """
 
+def error(module, function, exp):
+    print(f" Error en módulo '{module}', función '{function}': {exp}")
+
 
 def reraise(excp, *args):
     """

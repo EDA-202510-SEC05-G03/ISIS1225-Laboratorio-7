@@ -28,8 +28,8 @@ import sys
 import App.logic as logic
 import DataStructures.List.arlt as al
 import DataStructures.Map.map_entry as me
-import DataStructures.Map.map_linear_probing as mad
-#TODO revisar la importación del mapa de linear probing
+from DataStructures.Map import map_linear_probing as lp
+
 
 
 
@@ -52,13 +52,13 @@ def new_logic():
     control = logic.new_logic()
     return control
 
-# TODO: Incluir las mediciones de tiempo y uso de memoria en la ejecución de la consulta.
+
 def load_data(control):
     """
     Solicita a la controlador que cargue los datos
     """
-    books, authors, tags, book_tags = logic.load_data(control)
-    return books, authors, tags, book_tags
+    books, authors, tags, book_tags, elapsed_time, memory_used = logic.load_data(control)
+    return books, authors, tags, book_tags, elapsed_time, memory_used
 
 #  -------------------------------------------------------------
 # Funciones para la correcta impresión de los datos
@@ -153,30 +153,42 @@ def main():
     while working:
         print_menu()
         inputs = input("Seleccione una opción para continuar\n")
-        # TODO: agregar tiempo de ejecución y consumo de memoria
+        
         if int(inputs[0]) == 1:
             print("Cargando información de los archivos ....")
-            bk, at, tg, bktg = load_data(control)
+            bk, at, tg, bktg, et, mu = load_data(control)
             print('Libros cargados: ' + str(bk))
             print('Autores cargados: ' + str(at))
             print('Géneros cargados: ' + str(tg))
             print('Asociación de Géneros a Libros cargados: ' +
                   str(bktg))
+            print('Tiempo de carga: ' + str(et))
+            print('Memoria utilizada: ' + str(mu))
 
         elif int(inputs[0]) == 2:
             number = input("Ingrese el id del libro (good_read_book_id) que desea buscar: ")
             book = logic.get_book_info_by_book_id(control, number)
-            print_book_info(book)
+            if book is None:
+                print("No se encontraron libros")
+            else:
+                print_book_info(book)
+            
 
         elif int(inputs[0]) == 3:
             authorname = input("Nombre del autor a buscar: ")
             author, author_book_list = logic.get_books_by_author(control, authorname)
-            print_books_by_author(author,author_book_list)
+            if author_book_list is None:
+                print("No se encontraron libros para el autor")
+            else:
+                print_books_by_author(author, author_book_list)
 
         elif int(inputs[0]) == 4:
             label = input("Etiqueta a buscar: ")
             book_list_by_tag = logic.get_books_by_tag(control, label)
-            print_books_by_tag(label, book_list_by_tag)
+            if book_list_by_tag is None:
+                print("No se encontraron libros para el tag")
+            else:
+                print_books_by_tag(label, book_list_by_tag)
                  
         elif int(inputs[0]) == 5:
             author_name = input("Ingrese el nombre del autor que desea buscar:\n")

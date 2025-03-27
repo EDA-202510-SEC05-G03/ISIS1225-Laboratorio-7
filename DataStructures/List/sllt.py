@@ -2,9 +2,9 @@
 from typing import Any
 # import csv
 # import project libs
-from Src.Func.DataStructs.List import ltnode as node
+from DataStructures.List import ltnode as node
 # import project errors
-from Src.Func.Utils.error import error_handler as err
+from DataStructures.Utils import error as err
 
 
 """
